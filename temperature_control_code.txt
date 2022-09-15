@@ -1,0 +1,97 @@
+#include <LiquidCrystal.h>
+
+const int temp_trans_pin = A0;
+const int heater_pin = 13;
+const int fan_pin = 6;
+int volt,temp;
+
+float mintemp = 20, maxtemp = 25;
+LiquidCrystal LCD (12,11,5,4,3,2);
+
+void setup()
+{
+	LCD.begin(16,2);
+    pinMode(heater_pin,OUTPUT);
+    pinMode(fan_pin,OUTPUT);
+    LCD.print("ROOM TEMP :");
+    LCD.setCursor(2,1);
+    LCD.print(mintemp); LCD.print("-"); LCD.print(maxtemp);
+    
+    delay(2000);
+}
+
+void loop()
+{
+	volt = analogRead(temp_trans_pin)*5.0/1023;
+    temp = 100.0*volt-50.0;
+    LCD.clear();
+    LCD.print("Sensor Reading ...");
+    LCD.setCursor(2,1);
+    LCD.print(temp); LCD.print("C");
+    
+    delay(2000);
+    
+    if(temp>maxtemp)
+    {
+    	LCD.clear();
+        LCD.print("TEMP IS HIGH");
+        LCD.setCursor(0,1);
+        LCD.print("turn on fan");
+        for(int i =0; i<255; i++)
+        {
+          analogWrite(fan_pin,i);
+          delay(20);
+        }
+        
+        delay(2000);
+        LCD.clear();
+        LCD.print("TEMP IS OK");
+        LCD.setCursor(0,1);
+        LCD.print("turn off fan");
+        for(int i =255; i>0; i--)
+        {
+          analogWrite(fan_pin,i);
+          delay(20);
+        }
+      
+        delay(2000);
+    }
+  
+    else if(temp<mintemp)
+    {
+    	LCD.clear();
+        LCD.print("TEMP IS LOW");
+        LCD.setCursor(0,1);
+        LCD.print("turn on heater");
+        digitalWrite(heater_pin,HIGH);
+        
+        delay(5000);
+        LCD.clear();
+        LCD.print("TEMP IS OK");
+        LCD.setCursor(0,1);
+        LCD.print("turn off heater");
+        digitalWrite(heater_pin,LOW);
+      
+        delay(2000);
+    }
+  
+    else if (temp>=mintemp && temp<=maxtemp)
+    {
+    	LCD.clear();
+        LCD.print("TEMP IS NORMAL");
+        LCD.setCursor(2,1);
+        LCD.print("turn off all");
+        
+        delay(2000);
+    }
+    else
+    {
+    	LCD.clear();
+        LCD.print("SOMETHING WENT WRONG");
+        LCD.setCursor(2,1);
+        LCD.print("check the circuit");
+        
+        delay(2000);
+    }
+      
+}
