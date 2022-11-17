@@ -1,0 +1,74 @@
+{
+  "deviceTypes": [
+    {
+      "id": "Buzzer",
+      "running": true,
+      "events": [
+        {
+          "id": "event_1",
+          "frequency": {
+            "repeat": 20,
+            "every": "minute"
+          },
+          "json": "{\n  \"randomNumber\": random(0, 100)\n}\n"
+        }
+      ],
+      "devices": [
+        {
+          "id": "ibm",
+          "generated": false
+        }
+      ],
+      "managed": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "Sensor",
+      "running": true,
+      "events": [
+        {
+          "id": "event_1",
+          "frequency": {
+            "repeat": 20,
+            "every": "minute"
+          },
+          "json": "{\n  \"randomNumber\": random(0, 100)\n}\n"
+        }
+      ],
+      "devices": [
+        {
+          "id": "ibm",
+          "generated": false
+        }
+      ],
+      "managed": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "Arduino",
+      "running": true,
+      "events": [
+        {
+          "id": "event_1",
+          "frequency": {
+            "repeat": 20,
+            "every": "minute"
+          },
+          "json": "{\n  \"randomNumber\": random(0, 100)\n}\n"
+        }
+      ],
+      "devices": [
+        {
+          "id": "ibm",
+          "generated": false
+        }
+      ],
+      "managed": {
+        "enabled": false
+      }
+    }
+  ],
+  "APIKey": "a-i5z79o-0diyskuehp"
+}
